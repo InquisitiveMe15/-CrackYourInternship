@@ -1,0 +1,123 @@
+//only iterating once
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int n1 = a.size();
+        int n2 = b.size();
+        if(n1>n2){
+            int x = n1-n2;
+            for(int i=0; i<x; i++){
+                b.insert(0,"0");
+            }
+        }
+        if(n2>n1){
+            int x = n2-n1;
+            for(int i=0; i<x; i++){
+                a.insert(0,"0");
+            }
+        }
+        // cout<<a<<" "<<b<<"\n";
+        int n = a.size();
+        string carry = "0";
+        string ans = "";
+        for(int i=n-1; i>=0; i--){
+            if(a[i]=='0' && b[i]=='0'){
+                if(carry == "0"){
+                    carry = "0";
+                    ans.insert(0,"0");
+                }
+                else{
+                    carry = "0";
+                    ans.insert(0,"1");
+                }
+                
+            }
+            
+            if(a[i]=='1' && b[i]=='1'){
+                if(carry == "0"){
+                    carry = "1";
+                    ans.insert(0,"0");
+                }
+                else{
+                    carry = "1";
+                    ans.insert(0,"1");
+                }
+                
+            }
+            
+            if(a[i]=='1' && b[i]=='0'){
+                if(carry == "0"){
+                    carry = "0";
+                    ans.insert(0,"1");
+                }
+                else{
+                    carry = "1";
+                    ans.insert(0,"0");
+                }
+                
+            }
+            
+            if(a[i]=='0' && b[i]=='1'){
+                if(carry == "0"){
+                    carry = "0";
+                    ans.insert(0,"1");
+                }
+                else{
+                    carry = "1";
+                    ans.insert(0,"0");
+                }
+                
+            }
+        }
+        if(carry=="1"){
+            ans.insert(0,"1");
+        }
+        return ans;
+    }
+    
+    
+};
+
+//using conversions..........it will cause error related to overflow
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int first = toDecimal(a);
+        int second = toDecimal(b);
+        // cout<<first<<" "<<second<<"\n";
+        int sum = first+second;
+        string ans = toBinary(sum);
+        return ans;
+    }
+    
+    int toDecimal(string x){
+        // cout<<x<<"\n";
+        int n = x.size();
+        // cout<<n<<"\n";
+        int y = n-1;
+        long long int number = 0;
+        
+        for(int i=0; i<n; i++){
+            number += ((int)(x[i]-'0')*(round(pow(2,y))));
+            // cout<<number<<"\n";
+            y--;
+        }
+        return number;
+    }
+    
+    string toBinary(int x){
+        if(x==0){
+            return "0";
+        }
+        string s = "";
+        int y;
+        while(x>0){
+            y = x%2;
+            
+            s = s+to_string(y);
+            x=x/2;
+        }
+        reverse(s.begin(),s.end());
+        return s;
+    }
+};
