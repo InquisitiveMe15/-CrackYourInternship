@@ -1,0 +1,142 @@
+//first code is of finding the Largest Rectangular Area in a Histogram
+//using stack in two passes, time complexity O(n)
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        int left[n];
+        int right[n];
+        stack<int> s;
+        int maxArea = INT_MIN;
+        for(int i=0; i<n; i++){
+            while(!s.empty() && heights[s.top()] >= heights[i]){
+                s.pop();
+            }
+            if(!s.empty() && heights[s.top()] < heights[i]){
+                left[i] = s.top()+1;
+                
+            }
+            else{
+                left[i] = 0;
+                
+            }
+            s.push(i);
+        }
+        
+        while(!s.empty()){
+            s.pop();
+        }
+        for(int i=n-1; i>=0; i--){
+            while(!s.empty() && heights[s.top()] >= heights[i]){
+                s.pop();
+            }
+            if(!s.empty() && heights[s.top()] < heights[i]){
+                right[i] = s.top()-1;
+                
+            }
+            else{
+                right[i] = n-1;
+                
+            }
+            s.push(i);
+            maxArea = max(maxArea, (right[i]-left[i]+1)*heights[i]);
+
+        }
+        // for(int i=0; i<n; i++){
+        //     maxArea = max(maxArea, (right[i]-left[i]+1)*heights[i]);
+        // }
+        return maxArea;
+    }
+};
+
+
+//Maximum size rectangle binary sub-matrix with all 1s
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        int left[n];
+        int right[n];
+        stack<int> s;
+        int maxArea = INT_MIN;
+        for(int i=0; i<n; i++){
+            while(!s.empty() && heights[s.top()] >= heights[i]){
+                s.pop();
+            }
+            if(!s.empty() && heights[s.top()] < heights[i]){
+                left[i] = s.top()+1;
+                
+            }
+            else{
+                left[i] = 0;
+                
+            }
+            s.push(i);
+        }
+        
+        while(!s.empty()){
+            s.pop();
+        }
+        for(int i=n-1; i>=0; i--){
+            while(!s.empty() && heights[s.top()] >= heights[i]){
+                s.pop();
+            }
+            if(!s.empty() && heights[s.top()] < heights[i]){
+                right[i] = s.top()-1;
+                
+            }
+            else{
+                right[i] = n-1;
+                
+            }
+            s.push(i);
+            maxArea = max(maxArea, (right[i]-left[i]+1)*heights[i]);
+
+        }
+        // for(int i=0; i<n; i++){
+        //     maxArea = max(maxArea, (right[i]-left[i]+1)*heights[i]);
+        // }
+        return maxArea;
+    }
+
+
+
+int main() {
+    // vector<int> t;
+    // t.push_back(2);
+    // t.push_back(1);
+    // t.push_back(5);
+    // t.push_back(6);
+    // t.push_back(2);
+    // t.push_back(3);
+    // cout<<largestRectangleArea(t);
+    
+    int rows,columns;
+    cin>>rows>>columns;
+    vector<vector<int>> matrix;
+    int maxRectangle = 0;
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<columns; j++){
+            cin>>matrix[i][j];
+        }
+    }
+    
+    maxRectangle = max(maxRectangle, largestRectangleArea(matrix[0]));
+    
+    for(int i=1; i<rows; i++){
+        for(int j=0; j<columns; j++){
+            if(matrix[i][j]!=0){
+                matrix[i][j]+=matrix[i-1][j];
+            }
+        }
+        maxRectangle = max(maxRectangle, largestRectangleArea(matrix[i]) );
+        cout<<maxRectangle<<"\n";
+        
+    }
+    cout<<maxRectangle<<"\n";
+   
+    return 0;
+}
