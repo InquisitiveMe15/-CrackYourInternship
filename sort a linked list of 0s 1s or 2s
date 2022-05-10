@@ -48,3 +48,59 @@ Node* sortList(Node *head)
 	}
 	return head;
 }
+
+//by changing links of nodes
+
+/********************************
+    class Node
+    {
+    public:
+        int data;
+        Node *next;
+        Node(int data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+
+********************************/
+
+Node* sortList(Node *head)
+{
+  
+	int count0 = 0, count1 = 0, count2 = 0;
+	Node* temp = head;
+	Node* dummyzero = new Node(0);
+	Node* dummyone = new Node(0);
+	Node* dummytwo = new Node(0);
+	Node* zero = dummyzero;
+	Node* one = dummyone;
+	Node* two = dummytwo;
+	while(temp!= nullptr){
+		if(temp->data == 0){
+			Node* tempzero = new Node(0);
+			zero->next = tempzero;
+			zero=zero->next;
+		}
+		else if(temp->data == 1){
+			Node* tempone = new Node(1);
+			one->next = tempone;
+			one=one->next;
+		}
+		else if(temp->data == 2){
+			Node* temptwo = new Node(2);
+			two->next = temptwo;
+			two=two->next;
+		}
+		temp=temp->next;
+		
+		
+	}
+		zero->next = dummyone->next;
+		one->next = dummytwo->next;
+		return dummyzero->next;
+	
+
+}
+
