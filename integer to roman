@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        string roman = "";
+        vector<int> a={1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        vector<string> b={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        for(int i=0; i<a.size(); i++){
+            int c = num/a[i];
+            while(c--){
+                roman+=b[i];
+            }
+            num=num%a[i];
+        }
+        return roman;
+        
+    }
+};
