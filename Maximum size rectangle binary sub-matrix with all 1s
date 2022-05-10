@@ -116,7 +116,7 @@ int main() {
     
     int rows,columns;
     cin>>rows>>columns;
-    vector<vector<int>> matrix;
+    vector<vector<int>> matrix(rows,vector<int>(columns));
     int maxRectangle = 0;
     for(int i=0; i<rows; i++){
         for(int j=0; j<columns; j++){
