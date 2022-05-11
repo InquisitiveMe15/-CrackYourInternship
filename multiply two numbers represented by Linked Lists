@@ -1,0 +1,46 @@
+//it will fail when length of linked list is long.........integer overflow.
+
+Node *multiplyLL(Node *head1, Node *head2)
+{
+  
+	Node* tail1 = head1;
+	Node* tail2 = head2;
+	int count1 = 1;
+	int count2 = 1;
+	vector<int> a;
+	vector<int> b;
+	while(tail1->next!=nullptr){
+		a.push_back(tail1->data);
+		tail1=tail1->next;
+		count1++;
+		
+	}
+	a.push_back(tail1->data);
+	while(tail2->next!=nullptr){
+		b.push_back(tail2->data);
+		tail2=tail2->next;
+		count2++;
+	}
+	b.push_back(tail2->data);
+	long long int product;
+	long long int number1 = 0;
+	for(int i=0; i<count1; i++){
+		number1+=a[count1-i-1]*round(pow(10,i));
+	}
+	long long int number2 = 0;
+	for(int i=0; i<count2; i++){
+		number2+=b[count2-i-1]*round(pow(10,i));
+	}
+	product = number1*number2;
+// 	cout<<number1<<" "<<number2<<" "<<product<<"\n";
+	Node* headp = new Node(product%10);
+	product/=10;
+	while(product>0){
+		int x = product%10;
+		Node* temp  = new Node(x);
+		temp->next = headp;
+		headp = temp;
+		product/=10;
+	}
+	return headp;
+}
