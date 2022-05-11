@@ -1,3 +1,63 @@
+for more better approach 
+https://youtu.be/Xb4slcp1U38?list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma
+
+
+//this solution doesn't use any extra space, space complexity O(1);
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list2==nullptr){
+            return list1;
+        }
+        ListNode* prevList2 = new ListNode();
+        prevList2->next = list2;
+        ListNode* head2 = list2;
+        bool check = true;
+        while(list1!=nullptr && list2!=nullptr){
+            while(list1!=nullptr && list2!=nullptr && list1->val<=list2->val){
+                ListNode* temp = list1;
+                list1=list1->next;
+                temp->next = prevList2->next;
+                prevList2->next = temp;
+                prevList2 = prevList2->next;
+                if(check){
+                    head2 = prevList2;
+                    check = false;
+                }
+            }
+            
+            while(list1!=nullptr && list2!=nullptr && list1->val > list2->val){
+                prevList2 = list2;
+                list2 = list2->next;
+                if(check){
+                    head2 = prevList2;
+                    check = false;
+                }
+                
+            }
+        }
+        if(list1==nullptr){
+            return head2;
+        }
+        else{
+            prevList2->next = list1;
+            return head2;
+        }
+        
+    }
+};
+
 //this solution uses a third linked list
 
 /**
