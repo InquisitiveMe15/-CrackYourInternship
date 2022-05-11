@@ -38,3 +38,52 @@ public:
         
     }
 };
+
+
+//using while loop
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==nullptr){
+            return head;
+        }
+        if(head->next == nullptr){
+            return head;
+        }
+        else if(head->next->next==nullptr){
+            head->next->next = head;
+            head=head->next;
+            head->next->next = nullptr;
+            return head;
+        }
+        else{
+            ListNode* a = head->next;
+            ListNode* b = a->next;
+            a->next = head;
+            head->next = nullptr;
+            head = a;
+            a = b;
+            b = b->next;
+            while(b!=nullptr){
+                a->next = head;
+                head = a;
+                a = b;
+                b = b->next;
+            }
+            a->next = head;
+            return a;
+        }
+        
+    }
+};
