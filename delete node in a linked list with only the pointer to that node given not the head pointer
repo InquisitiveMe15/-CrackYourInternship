@@ -1,0 +1,57 @@
+//condition that the node to be deleted is not the last node
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node->val=node->next->val;
+        node->next = node->next->next;
+    }
+};
+
+
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        while(node->next->next!=nullptr){
+            node->val = node->next->val;
+            node=node->next;
+        }
+        node->val = node->next->val;
+        delete node->next;
+        node->next = nullptr;
+    }
+};
+
+//if it is the last node then the solution will be
+//making use of doubly linked list
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        if(node->next==nullptr){
+            node->prev->next = nullptr;
+        }
+        else{
+            node->prev->next = node->next;
+            
+        }
+        delete node;
+    }
+};
