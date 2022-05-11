@@ -1,0 +1,67 @@
+//most optimal one....more concise code is below this one
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* d1 = headA;
+        ListNode* d2 = headB;
+        while(d1!=nullptr && d2!=nullptr){
+            d1=d1->next;
+            d2=d2->next;
+        }
+        if(d1==nullptr){
+            d1 = headB;
+            while(d2!=nullptr){
+                d2=d2->next;
+                d1=d1->next;
+            }
+            d2=headA;
+            while(d1!=d2 && d1!=nullptr && d2!=nullptr){
+                d1=d1->next;
+                d2=d2->next;
+            }
+            return d1;
+        }
+        else{
+            d2 = headA;
+            while(d1!=nullptr){
+                d2=d2->next;
+                d1=d1->next;
+            }
+            d1=headB;
+            while(d1!=d2 && d1!=nullptr && d2!=nullptr){
+                d1=d1->next;
+                d2=d2->next;
+            }
+            return d1;
+        }
+    }
+};
+
+
+//concise one
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA==nullptr || headB==nullptr){
+            return NULL;
+        }
+        ListNode* d1 = headA;
+        ListNode* d2 = headB;
+        while(d1!=d2){
+            d1=d1==nullptr?headB:d1->next;
+            d2=d2==nullptr?headA:d2->next;
+        }
+        return d1;
+        
+    }
+};
