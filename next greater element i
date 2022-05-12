@@ -1,0 +1,50 @@
+//it is of the order of m*n........
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums2.size();
+        stack<int> nextG;
+        stack<int> temp;
+        for(int i=n-1; i>=0; i--){
+            if(temp.empty()){
+                nextG.push(-1);
+                temp.push(nums2[i]);
+            }
+            else if(temp.top()>nums2[i]){
+                nextG.push(temp.top());
+                temp.push(nums2[i]);
+            }
+            else{
+                
+                while(!temp.empty() && temp.top()<nums2[i]){
+                    temp.pop();
+                }
+                if(!temp.empty()){
+                    nextG.push(temp.top());
+                }
+                else{
+                    nextG.push(-1);
+                }
+                temp.push(nums2[i]);
+            }
+        }
+        vector<int> ans;
+        while(!nextG.empty()){
+            // cout<<nextG.top()<<" ";
+            ans.push_back(nextG.top());
+            nextG.pop();
+        }
+        
+        vector<int> finalAns;
+        for(int i=0; i<(int)nums1.size(); i++){
+            for(int j=0; j<n; j++){
+                if(nums1[i]==nums2[j]){
+                    finalAns.push_back(ans[j]);
+                    break;
+                }
+            }
+        }
+        return finalAns;
+    }
+};
