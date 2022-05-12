@@ -1,0 +1,45 @@
+Given 1->2->3->4, you should return the list as 2->1->4->3
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ListNode* Solution::swapPairs(ListNode* head) {
+    if(head == nullptr || head->next == nullptr){
+        return head;
+    }
+    if(head->next->next == nullptr){
+        ListNode* temp = head;
+        head = head->next;
+        head->next = temp;
+        temp->next = nullptr;
+        return head;
+    }
+    ListNode* a = head;
+    ListNode* b = a->next;
+    ListNode* c = b->next;
+    head = head->next;
+    while(b!=nullptr && c!=nullptr){
+        b->next = a;
+        a->next = c;
+        ListNode* temp = a;
+        a = c;
+        b = a->next;
+        if(b!=nullptr){
+            c = b->next;
+            temp->next = b;
+        }
+        
+    }
+    if(b==nullptr){
+        return head;
+    }
+    else{
+        b->next = a;
+        a->next = c;
+        return head;
+    }
+}
