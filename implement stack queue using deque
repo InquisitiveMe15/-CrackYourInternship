@@ -57,3 +57,64 @@ public:
 		return dq.size();
     }
 };
+
+
+//queue using deque
+class Queue
+{
+public:
+    // Initialize your data structure.
+	deque<int> dq;
+    Queue()
+    {
+    }
+
+    // Pushes 'X' into the queue. Returns true if it gets pushed into the queue, and false otherwise.
+    bool push(int x)
+    {
+        // Write your code here.
+		dq.push_back(x);
+		return true;
+    }
+
+    // Pops top element from queue from front. Returns -1 if the queue is empty, otherwise returns the popped element.
+    int dequeue()
+    {
+        // Write your code here.
+		if(dq.empty()){
+			return -1;
+		}
+		int x = dq.front();
+		dq.pop_front();
+		return x;
+    }
+
+    // Returns the front element of the queue. In case the queue is empty, it returns -1.
+    int front()
+    {
+        // Write your code here.
+		if(dq.empty()){
+			return -1;
+		}
+		int x = dq.front();
+		return x;
+    }
+
+    // Returns true if the stack is empty, otherwise false.
+    bool isEmpty()
+    {
+        // Write your code here.
+		if(dq.empty()){
+			return true;
+		}
+		return false;
+    }
+
+    // Returns the number of elements currently present in the stack.
+    int size()
+    {
+        // Write your code here.
+		return dq.size();
+    }
+};
+
